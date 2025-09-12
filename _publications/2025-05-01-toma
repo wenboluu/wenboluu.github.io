@@ -1,14 +1,14 @@
 ---
 title: "ToMA: Token Merge with Attention for Diffusion Models"
 collection: publications
-category: manuscripts
+category: conferences
 permalink: /publication/toma
-excerpt: 'This paper is about the token merge with attention for diffusion models.'
+# excerpt: 'This paper is about the token merge with attention for diffusion models.'
 date: 2025-05-01
 venue: 'International Conference on Machine Learning'
 slidesurl: 'https://icml.cc/virtual/2025/poster/46449'
 paperurl: 'https://openreview.net/pdf?id=51l8tvuIxo'
-bibtexurl: 'http://academicpages.github.io/files/1toma.bib'
+bibtexurl: 'http://wenboluu.github.io/files/1toma.bib'
 citation: 'Wenbo Lu, Shaoyi Zheng, Yuxuan Xia, Shengjie Wang. (2025). &quot;ToMA: Token Merge with Attention for Diffusion Models.&quot; <i>International Conference on Machine Learning</i>. 1(1).'
 ---
 The contents above will be part of a list of publications, if the user clicks the link for the publication than the contents of section will be rendered as a full page, allowing you to provide more information about the paper for the reader. When publications are displayed as a single page, the contents of the above "citation" field will automatically be included below this section in a smaller font.
