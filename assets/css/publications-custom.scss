@@ -1,0 +1,75 @@
+/* ==========================================================================
+   CUSTOM PUBLICATIONS STYLING
+   ========================================================================== */
+
+/* Page title */
+.page__title {
+  font-size: 2.5em; // Larger than default
+}
+
+/* Category headers (e.g., "Conference Papers") */
+.archive__subtitle {
+  font-size: 1em; // Slightly larger than default
+  font-weight: bold;
+}
+
+/* Publication titles */
+.archive__item-title {
+  font-size: 1.4em; // Larger than default h2
+  line-height: 1.3;
+}
+
+/* Publication details (venue, year) */
+.archive__item p {
+  font-size: 0.85em; // Smaller than before
+  line-height: 1.4;
+}
+
+/* Publication excerpts */
+.archive__item-excerpt {
+  font-size: 0.75em; // Smaller than before
+  line-height: 1.5;
+  color: var(--global-text-color-light);
+}
+
+/* Citation and download links */
+.archive__item p:last-child {
+  font-size: 0.7em; // Smaller than before
+  margin-top: 0.5em;
+}
+
+/* Google Scholar link */
+.wordwrap {
+  font-size: 0.85em; // Smaller than before
+  margin-bottom: 1.5em;
+}
+
+/* Responsive adjustments */
+@include breakpoint($medium) {
+  .archive__item-title {
+    font-size: 1.3em;
+  }
+  
+  .archive__item-excerpt {
+    font-size: 0.7em;
+  }
+  .archive__item p {
+    font-size: 0.8em;
+  }
+  .archive__item p:last-child {
+    font-size: 0.65em;
+  }
+  .wordwrap {
+    font-size: 0.8em;
+  }
+}
+
+@include breakpoint($large) {
+  .page__title {
+    font-size: 2.2em;
+  }
+  
+  .archive__item-title {
+    font-size: 1.35em;
+  }
+}
