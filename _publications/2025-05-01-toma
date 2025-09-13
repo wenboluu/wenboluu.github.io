@@ -2,7 +2,7 @@
 title: "ToMA: Token Merge with Attention for Diffusion Models"
 collection: publications
 category: conferences
-permalink: /publication/toma
+# permalink: /publication/toma
 # excerpt: 'This paper is about the token merge with attention for diffusion models.'
 date: 2025-05-01
 venue: 'International Conference on Machine Learning'
