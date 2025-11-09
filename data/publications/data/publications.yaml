@@ -1,0 +1,32 @@
+publications:
+  - id: 1
+    title: "ToMA: Token Merge with Attention for Diffusion Models"
+    link: "https://proceedings.mlr.press/v267/lu25v.html"
+    authors: "Wenbo Lu, Shaoyi Zheng, Yuxuan Xia, Shengjie Wang"
+    venue: "International Conference on Machine Learning (ICML), 2025"
+    bib: "Poster presentation."
+    image: "data/publications/images/toma.jpg"
+  
+  - id: 2
+    title: "Do You Need Proprioceptive States in Visuomotor Policies?"
+    link: "https://arxiv.org/abs/2509.18644"
+    authors: "Juntu Zhao, Wenbo Lu, Di Zhang, Yufeng Liu, Yushen Liang, Tianluo Zhang, Yifeng Cao, Junyuan Xie, Yingdong Hu, Shengjie Wang, Junliang Guo, Dequan Wang, Yang Gao"
+    venue: "arXiv Preprint, 2025"
+    bib: "Co-first author (equal contribution)."
+    image: "data/publications/images/proprio.jpg"
+
+  - id: 3
+    title: "HilbertA: Hilbert Attention for Image Generation with Diffusion Models"
+    link: "https://arxiv.org/abs/2509.26538"
+    authors: "Shaoyi Zheng, Wenbo Lu, Yuxuan Xia, Haomin Liu, Shengjie Wang"
+    venue: "arXiv Preprint, 2025"
+    bib: ""
+    image: "data/publications/images/hilberta.jpg"
+
+  - id: 4
+    title: "SLIP: Structural-aware Language-Image Pretraining for Vision-Language Alignment"
+    link: "https://arxiv.org/abs/2511.03019"
+    authors: "Wenbo Lu"
+    venue: "arXiv Preprint, 2025"
+    bib: "Undergraduate capstone project."
+    image: "data/publications/images/slip.jpg"
