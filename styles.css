@@ -590,6 +590,10 @@ section {
 }
 
 /* Research Section */
+.research {
+    background: var(--bg-darker);
+}
+
 .research-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -654,7 +658,7 @@ section {
 
 /* Publications Section */
 .publications {
-    background: var(--bg-darker);
+    background: transparent;
 }
 
 .publications-list {
