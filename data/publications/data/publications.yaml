@@ -11,16 +11,16 @@ publications:
     title: "Do You Need Proprioceptive States in Visuomotor Policies?"
     link: "https://arxiv.org/abs/2509.18644"
     authors: "Juntu Zhao, Wenbo Lu, Di Zhang, Yufeng Liu, Yushen Liang, Tianluo Zhang, Yifeng Cao, Junyuan Xie, Yingdong Hu, Shengjie Wang, Junliang Guo, Dequan Wang, Yang Gao"
-    venue: "arXiv Preprint, 2025"
-    bib: "Co-first author (equal contribution)."
+    venue: "Submitted to ICRA 2026"
+    bib: "Co-first author (equal contribution). Under review."
     image: "data/publications/images/proprio.jpg"
 
   - id: 3
     title: "HilbertA: Hilbert Attention for Image Generation with Diffusion Models"
     link: "https://arxiv.org/abs/2509.26538"
     authors: "Shaoyi Zheng, Wenbo Lu, Yuxuan Xia, Haomin Liu, Shengjie Wang"
-    venue: "arXiv Preprint, 2025"
-    bib: ""
+    venue: "Submitted to ICLR 2026"
+    bib: "Co-first author (equal contribution). Under review."
     image: "data/publications/images/hilberta.jpg"
 
   - id: 4
