@@ -517,6 +517,83 @@ async function loadPublications() {
 }
 
 // ============================================================================
+// PROGRESS BAR (LEFT SIDE)
+// ============================================================================
+
+function initProgressBar() {
+    const progressBar = document.getElementById('progressBar');
+    const sections = ['home', 'research', 'publications', 'about', 'contact'];
+    const sectionElements = sections.map(id => document.getElementById(id));
+    const progressSections = document.querySelectorAll('.progress-section');
+    
+    function updateProgress() {
+        const scrollTop = window.pageYOffset;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        
+        // Calculate overall progress (vertical)
+        const scrollableHeight = documentHeight - windowHeight;
+        const progress = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
+        progressBar.style.height = `${Math.min(100, Math.max(0, progress))}%`;
+        
+        // Determine active section
+        let activeSection = 'home';
+        const scrollPosition = scrollTop + windowHeight / 2;
+        
+        sectionElements.forEach((section, index) => {
+            if (!section) return;
+            
+            const rect = section.getBoundingClientRect();
+            const sectionTop = rect.top + scrollTop;
+            const sectionBottom = sectionTop + rect.height;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                activeSection = sections[index];
+            }
+        });
+        
+        // Update section indicators
+        progressSections.forEach((sectionEl, index) => {
+            const sectionId = sections[index];
+            sectionEl.classList.remove('active', 'completed');
+            
+            const currentIndex = sections.indexOf(activeSection);
+            if (index === currentIndex) {
+                sectionEl.classList.add('active');
+            } else if (index < currentIndex) {
+                sectionEl.classList.add('completed');
+            }
+        });
+    }
+    
+    // Add click handlers to navigate to sections
+    progressSections.forEach((sectionEl, index) => {
+        sectionEl.addEventListener('click', () => {
+            const sectionId = sections[index];
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+    
+    // Throttle scroll events
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                updateProgress();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+    
+    // Initial update
+    updateProgress();
+}
+
+// ============================================================================
 // INITIALIZATION
 // ============================================================================
 
@@ -528,6 +605,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     
     createParticles();
     initDraggablePortrait();
+    initProgressBar();
     
     const heroText = document.querySelector('.hero-text');
     if (heroText) {
