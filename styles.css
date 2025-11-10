@@ -751,11 +751,14 @@ section {
     height: 40px;
     margin-bottom: 3rem;
     color: var(--primary-color);
+    background: transparent;
 }
 
 .card-icon svg {
     width: 150%;
     height: 150%;
+    background: transparent;
+    display: block;
 }
 
 .research-card h3 {

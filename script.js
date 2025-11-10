@@ -411,18 +411,18 @@ async function loadResearchSection(research) {
         iconData[iconName] = await loadSVGIconWithAttributes(`data/icons/${iconName}.svg`);
     }));
     
-    researchGrid.innerHTML = research.cards.map(card => {
-        const icon = iconData[card.icon] || getDefaultIconData();
-        return `
-            <div class="research-card">
-                <div class="card-icon">
-                    <svg viewBox="${icon.viewBox}">${icon.content}</svg>
+        researchGrid.innerHTML = research.cards.map(card => {
+            const icon = iconData[card.icon] || getDefaultIconData();
+            return `
+                <div class="research-card">
+                    <div class="card-icon">
+                        <svg viewBox="${icon.viewBox}" fill="none">${icon.content}</svg>
+                    </div>
+                    <h3>${processMarkdown(card.title)}</h3>
+                    <p>${processMarkdown(card.description)}</p>
                 </div>
-                <h3>${processMarkdown(card.title)}</h3>
-                <p>${processMarkdown(card.description)}</p>
-            </div>
-        `;
-    }).join('');
+            `;
+        }).join('');
     
     createFadeInObserver('.research-card');
 }
