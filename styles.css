@@ -44,8 +44,8 @@ body {
 }
 
 .progress-bar-track {
-    width: 2px;
-    height: 200px;
+    width: clamp(1.5px, 0.15vw + 1px, 2px);
+    height: clamp(150px, 18vh, 220px);
     background: rgba(255, 255, 255, 0.1);
     position: relative;
     border-radius: 2px;
@@ -66,7 +66,7 @@ body {
 .progress-sections {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: clamp(1rem, 2vh, 2rem);
     align-items: center;
 }
 
@@ -78,11 +78,11 @@ body {
 
 .progress-dot {
     display: block;
-    width: 8px;
-    height: 8px;
+    width: clamp(4px, 0.4vw + 3px, 6px);
+    height: clamp(4px, 0.4vw + 3px, 6px);
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.3);
-    border: 2px solid transparent;
+    border: clamp(1px, 0.1vw + 0.5px, 1.5px) solid transparent;
     transition: all 0.3s ease;
 }
 
@@ -126,17 +126,43 @@ body {
     opacity: 1;
 }
 
+/* Tablet styles */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .hero {
+        padding: 0rem 2rem 3rem;
+    }
+    
+    .progress-bar-container {
+        left: 15px;
+    }
+    
+    .progress-bar-track {
+        height: clamp(140px, 16vh, 180px);
+    }
+}
+
+/* Mobile and small tablet */
 @media (max-width: 768px) {
+    .hero {
+        padding: 0rem 1.5rem 3rem;
+        min-height: 100vh;
+        align-items: center;
+    }
+    
+    .hero-content {
+        align-items: center;
+    }
+    
     .progress-bar-container {
         left: 10px;
     }
     
     .progress-bar-track {
-        height: 150px;
+        height: clamp(120px, 14vh, 160px);
     }
     
     .progress-sections {
-        gap: 1.5rem;
+        gap: clamp(0.75rem, 1.5vh, 1.25rem);
     }
     
     .progress-section::after {
@@ -227,7 +253,8 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: 8rem 2rem 4rem;
+    margin-top: -5rem;
+    padding: 0rem 2rem 4rem;
     overflow: hidden;
 }
 
@@ -274,6 +301,7 @@ body {
 
 .hero-text {
     animation: fadeInUp 1s ease;
+    margin-left: 2rem;
 }
 
 .hero-title {
@@ -606,7 +634,7 @@ body {
 
 .scroll-indicator {
     position: absolute;
-    bottom: 2rem;
+    bottom: 13rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
@@ -1038,7 +1066,14 @@ section {
     }
 }
 
+/* Small mobile */
 @media (max-width: 480px) {
+    .hero {
+        padding: 0rem 1rem 2rem;
+        min-height: 100vh;
+        align-items: center;
+    }
+    
     .hero-title {
         font-size: 2rem;
     }
@@ -1050,5 +1085,32 @@ section {
     .btn {
         padding: 0.75rem 1.5rem;
         font-size: 0.9rem;
+    }
+    
+    .progress-bar-container {
+        left: 8px;
+    }
+    
+    .progress-bar-track {
+        height: clamp(100px, 12vh, 140px);
+    }
+    
+    .progress-sections {
+        gap: clamp(0.5rem, 1.2vh, 1rem);
+    }
+}
+
+/* Large screens */
+@media (min-width: 1920px) {
+    .progress-bar-container {
+        left: 30px;
+    }
+    
+    .progress-bar-track {
+        height: 220px;
+    }
+    
+    .progress-sections {
+        gap: 2.25rem;
     }
 }
