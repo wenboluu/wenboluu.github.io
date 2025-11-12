@@ -8,14 +8,14 @@ hero:
   bio:
     - "Hi there! Thanks for dropping by! 🤗"
     - "I am a First-year PhD student in Computer Science at [NYU Courant](https://cims.nyu.edu) ([Shanghai Track](https://shanghai.nyu.edu/page/computer-science-phd-program)), honored to be advised by [Prof. Shengjie Wang](https://sheng-jie-wang.github.io/)."
-    - "My research interests span **diffusion models**, **efficient ML**, and **embodied AI**, with currently focusing on developing a generalizable and data efficient Vision-Language-Action models for robotic manipulation tasks."
+    - "My research interests span **diffusion models**, **efficient ML**, and **embodied AI**, currently focusing on developing generalizable and data efficient Vision-Language-Action models for manipulation tasks."
   portrait: "data/hero/portrait.png"
   social:
     - name: "GitHub"
-      url: "https://github.com/yourusername"
+      url: "https://github.com/wenboluu"
       icon: "github"
     - name: "LinkedIn"
-      url: "https://linkedin.com/in/yourusername"
+      url: "https://www.linkedin.com/in/wenbo-lu/"
       icon: "linkedin"
     - name: "Scholar"
       url: "https://scholar.google.com/citations?user=upqvnNYAAAAJ&hl=en"
