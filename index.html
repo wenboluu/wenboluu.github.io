@@ -1,141 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading...</title>
-    <link rel="icon" type="image/svg+xml" href="data/icons/robot.svg">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f3f2ef">
+  <meta name="description" content="Wenbo Lu is a PhD student in Computer Science at NYU Courant working on robot learning, world models and generative models for perception and action.">
+  <title>Wenbo Lu</title>
+  <link rel="preload" href="./assets/fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./style.css?v=4">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.min.js"}}</script>
 </head>
 <body>
-    <!-- Progress Bar (Left Side) -->
-    <div class="progress-bar-container">
-        <div class="progress-bar-track">
-            <div class="progress-bar" id="progressBar"></div>
+  <a class="skip" href="#about">Skip to introduction</a>
+  <main id="about" class="hero">
+    <header class="site-header">
+      <a class="wordmark" href="#about" aria-label="Wenbo Lu, home">Wenbo Lu</a>
+      <nav aria-label="Main navigation">
+        <a href="https://wenboluu.github.io/#publications" target="_blank" rel="noopener">Research</a>
+        <a href="mailto:wenbo.lu@nyu.edu">Get in touch</a>
+      </nav>
+    </header>
+    <div class="hero-inner">
+      <section class="intro" aria-labelledby="name">
+        <h1 id="name">Wenbo Lu</h1>
+        <p>I’m a PhD student in Computer Science at <a class="text-link" href="https://cims.nyu.edu/" target="_blank" rel="noopener">NYU Courant</a>, advised by <a class="text-link" href="https://sheng-jie-wang.github.io/" target="_blank" rel="noopener">Shengjie Wang</a>.</p>
+        <p>I work on robot learning, with a focus on world models and generative models for perception and action.</p>
+        <div class="socials" aria-label="Find me online">
+          <a href="mailto:wenbo.lu@nyu.edu"><img src="./assets/icons/mail.svg" alt="">Email</a>
+          <a href="https://scholar.google.com/citations?user=upqvnNYAAAAJ&amp;hl=en" target="_blank" rel="noopener"><img src="./assets/icons/school.svg" alt="">Google Scholar</a>
+          <a href="https://github.com/wenboluu" target="_blank" rel="noopener"><img src="./assets/icons/github.svg" alt="">GitHub</a>
+          <a href="https://www.linkedin.com/in/wenbo-lu/" target="_blank" rel="noopener"><img src="./assets/icons/linkedin.svg" alt="">LinkedIn</a>
         </div>
-        <div class="progress-sections">
-            <div class="progress-section" data-section="home" title="Home">
-                <span class="progress-dot"></span>
-            </div>
-            <div class="progress-section" data-section="research" title="Research">
-                <span class="progress-dot"></span>
-            </div>
-            <div class="progress-section" data-section="publications" title="Publications">
-                <span class="progress-dot"></span>
-            </div>
-            <div class="progress-section" data-section="about" title="About">
-                <span class="progress-dot"></span>
-            </div>
-            <div class="progress-section" data-section="contact" title="Contact">
-                <span class="progress-dot"></span>
-            </div>
+        <p class="personal">Outside the lab, I enjoy photography, travel, and road cycling.</p>
+      </section>
+      <figure class="scene-wrap">
+        <div id="scene" role="img" tabindex="0" aria-label="A silver seven-joint robot arm holds up Wenbo's photo. An NYU badge and a blue IKEA shark hang from the clear photo panel. Hover over the photo and the arm turns it toward you; click it, or press Enter, for a greeting.">
+          <div id="fallback" class="fallback"><img src="./assets/portrait.webp" alt="Wenbo in a purple graduation gown, surrounded by blue toy sharks"><p id="load-message"></p></div>
         </div>
+      </figure>
     </div>
-
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-text">Loading...</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#research" class="nav-link">Research</a></li>
-                <li><a href="#publications" class="nav-link">Publications</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="particles-container" id="particles"></div>
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1 class="hero-title">
-                    <span class="gradient-text">Loading...</span>
-                </h1>
-                <p class="hero-description">
-                    <!-- Content loaded from data/site-data.yaml -->
-                </p>
-                <div class="hero-info">
-                    <!-- Content loaded from data/site-data.yaml -->
-                </div>
-                <div class="hero-social">
-                    <!-- Social links loaded from data/site-data.yaml -->
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="portrait-container" id="portrait">
-                    <img src="" alt="" class="portrait-image" id="portraitImage">
-                    <div class="portrait-glow"></div>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="scroll-arrow"></div>
-        </div>
-    </section>
-
-    <!-- Research Section -->
-    <section id="research" class="research">
-        <div class="container">
-            <h2 class="section-title">Research Interests</h2>
-            <div class="research-grid">
-                <!-- Research cards loaded from data/site-data.yaml -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Publications Section -->
-    <section id="publications" class="publications">
-        <div class="container">
-            <h2 class="section-title">Publications</h2>
-            <div class="publications-list" id="publicationsList">
-                <!-- Publications will be loaded dynamically from YAML -->
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <!-- Content loaded from data/site-data.yaml -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Get in Touch</h2>
-            <div class="contact-content">
-                <!-- Contact content loaded from data/site-data.yaml -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p><!-- Footer text loaded from data/site-data.yaml --></p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+    <p class="credits">Shark model: <a href="https://sketchfab.com/3d-models/blahaj-ce981de49111488c81ea646067abe1ec" target="_blank" rel="noopener">“Blahaj” by Kaine_G</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> (recoloured).</p>
+  </main>
+  <script type="module" src="./scene.js?v=4"></script>
 </body>
 </html>
