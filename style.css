@@ -14,7 +14,7 @@ a:focus-visible,button:focus-visible,#scene:focus-visible{outline:2px solid var(
   /* before WebGL is ready: the same warm-left / cool-right room tone */
   background:radial-gradient(120% 90% at 8% 30%,#faf9f6 0%,#f2f1ee 45%,rgba(242,241,238,0) 70%),
              radial-gradient(80% 80% at 82% 40%,#e9ecef 0%,#eeefef 60%,#f1f1ef 100%)}
-.studio-canvas{position:absolute;inset:0 auto auto 0;z-index:0;display:block;opacity:0;transition:opacity .9s ease}
+.studio-canvas{position:absolute;inset:0 auto auto 0;z-index:0;display:block;opacity:0;transition:opacity .35s ease}
 .studio-ready .studio-canvas{opacity:1}
 .site-header{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:0 48px;height:104px;display:flex;align-items:center;justify-content:space-between}
 .wordmark{font-size:20px;font-weight:500;letter-spacing:-.4px}
@@ -37,9 +37,12 @@ h1{margin:0 0 30px;font-size:clamp(44px,4.6vw,68px);line-height:1.04;letter-spac
 .scene-wrap{margin:0;align-self:stretch;display:flex;flex-direction:column;min-height:0}
 #scene{flex:1;min-height:560px;position:relative;outline-offset:-2px}
 .fallback{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:14px;transition:opacity .4s}
-.fallback img{width:min(220px,48%);border-radius:10px;background:#d7dadd;box-shadow:0 18px 40px -24px rgba(40,50,60,.5)}
-.fallback p{margin:0;font-size:13px;color:var(--muted)}
-#scene.ready .fallback{opacity:0;pointer-events:none}
+.fallback img{display:none;width:min(220px,48%);border-radius:10px;background:#d7dadd;box-shadow:0 18px 40px -24px rgba(40,50,60,.5)}
+.fallback p{margin:0;font-size:13px;color:var(--muted);opacity:0;animation:loading-label .2s ease .6s forwards}
+@keyframes loading-label{to{opacity:1}}
+#scene.load-error .fallback img{display:block}
+#scene.load-error .fallback p{opacity:1;animation:none}
+#scene.ready .fallback{display:none}
 
 /* model credits: present, legible on focus/hover, out of the way */
 .credits{position:relative;z-index:1;margin:0 auto;padding:0 48px 14px;max-width:1280px;width:100%;font-size:11px;color:#a3a9b0}
@@ -58,4 +61,4 @@ h1{margin:0 0 30px;font-size:clamp(44px,4.6vw,68px);line-height:1.04;letter-spac
   .socials{margin:20px 0 20px;gap:12px 20px}
 }
 @media (max-width:420px){.site-header nav{gap:20px;font-size:14px}.socials a{font-size:13px}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.fallback p{opacity:1}}

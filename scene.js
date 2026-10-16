@@ -25,6 +25,9 @@ const REST_DZ = -0.8, PRESENT_DZ = 0.53;  // card depth at rest / presented (fro
 
 async function start() {
   prefetchArm();          // arm meshing runs in workers while the rest is set up
+  const portraitPromise = new THREE.TextureLoader().loadAsync('./assets/portrait.webp');
+  // Keep the asset request parallel with meshing; start() handles failures below.
+  portraitPromise.catch(() => {});
   const renderer = new THREE.WebGLRenderer({antialias: true, powerPreference: 'high-performance'});
   // 1.5x is visually indistinguishable here (the text is DOM) and ~45% fewer pixels than 2x
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));
@@ -110,7 +113,7 @@ async function start() {
   const edgePath = new THREE.CatmullRomCurve3(rounded(CARD.w - .004, CARD.h - .004, 0.038).getPoints(40).map(p => new THREE.Vector3(p.x, p.y, 0)), true);
   const edge = new THREE.Mesh(new THREE.TubeGeometry(edgePath, 240, 0.0042, 8, true), led);
   card.add(edge);
-  const portrait = await new THREE.TextureLoader().loadAsync('./assets/portrait.webp');
+  const portrait = await portraitPromise;
   portrait.colorSpace = THREE.SRGBColorSpace;
   portrait.anisotropy = renderer.capabilities.getMaxAnisotropy();
   const pw = CARD.w - 0.05, ph = CARD.h - 0.05;
@@ -267,16 +270,20 @@ async function start() {
   // Compile every shader up front, in parallel where the GPU driver allows
   // (KHR_parallel_shader_compile), instead of stalling the first frame.
   try { await renderer.compileAsync(scene, camera); } catch (e) {}
-  host.classList.add('ready'); document.body.classList.add('studio-ready');
+  // Render the assembled pose, shadows and floor reflection before revealing it.
+  // A separate HTML portrait must never morph/jump into the held photo.
+  studio.reflect(camera, [robot.root, ...pendants.flatMap(p => [p.group, ...p.links])]);
+  renderer.shadowMap.needsUpdate = true;
+  renderer.render(scene, camera);
+  host.classList.add('ready'); host.setAttribute('aria-busy', 'false');
+  document.body.classList.add('studio-ready');
 
   // ---- loop ----
   let last = performance.now(), acc = 0, tick = 0;
   const STEP = 1 / 120;
   addEventListener('visibilitychange', () => { last = performance.now(); acc = 0; });
-  // The floor reflection needs its own shader variants; compile those after
-  // the first frame is on screen so they don't delay it.
-  let reflectReady = params.has('still');
-  if (!reflectReady) setTimeout(() => window.requestIdleCallback ? requestIdleCallback(() => { reflectReady = true; needsRender = 3; }, {timeout: 1500}) : (reflectReady = true), 400);
+  // The floor reflection is already warm when the complete scene is revealed.
+  const reflectReady = true;
   // Stop rendering entirely while the hero is scrolled out of view.
   let onScreen = true;
   new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; last = performance.now(); }).observe(hero);
@@ -319,5 +326,6 @@ async function start() {
 
 start().catch(error => {
   console.error('Unable to initialise the interactive scene', error);
+  host.classList.add('load-error'); host.setAttribute('aria-busy', 'false');
   document.querySelector('#load-message').textContent = 'The interactive scene couldn’t load. Please refresh to try again.';
 });

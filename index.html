@@ -7,7 +7,9 @@
   <meta name="description" content="Wenbo Lu is a PhD student in Computer Science at NYU Courant working on robot learning, world models and generative models for perception and action.">
   <title>Wenbo Lu</title>
   <link rel="preload" href="./assets/fonts/inter-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="./style.css?v=4">
+  <link rel="preload" href="./assets/portrait.webp" as="image">
+  <link rel="stylesheet" href="./style.css?v=5">
+  <noscript><style>.fallback img{display:block}.fallback p{display:none}</style></noscript>
   <script type="importmap">{"imports":{"three":"./vendor/three.module.min.js"}}</script>
 </head>
 <body>
@@ -34,13 +36,13 @@
         <p class="personal">Outside the lab, I enjoy photography, travel, and road cycling.</p>
       </section>
       <figure class="scene-wrap">
-        <div id="scene" role="img" tabindex="0" aria-label="A silver seven-joint robot arm holds up Wenbo's photo. An NYU badge and a blue IKEA shark hang from the clear photo panel. Hover over the photo and the arm turns it toward you; click it, or press Enter, for a greeting.">
-          <div id="fallback" class="fallback"><img src="./assets/portrait.webp" alt="Wenbo in a purple graduation gown, surrounded by blue toy sharks"><p id="load-message"></p></div>
+        <div id="scene" aria-busy="true" role="img" tabindex="0" aria-label="A silver seven-joint robot arm holds up Wenbo's photo. An NYU badge and a blue IKEA shark hang from the clear photo panel. Hover over the photo and the arm turns it toward you; click it, or press Enter, for a greeting.">
+          <div id="fallback" class="fallback"><img src="./assets/portrait.webp" alt="Wenbo in a purple graduation gown, surrounded by blue toy sharks"><p id="load-message" role="status">Preparing the scene…</p></div>
         </div>
       </figure>
     </div>
     <p class="credits">Shark model: <a href="https://sketchfab.com/3d-models/blahaj-ce981de49111488c81ea646067abe1ec" target="_blank" rel="noopener">“Blahaj” by Kaine_G</a>, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> (recoloured).</p>
   </main>
-  <script type="module" src="./scene.js?v=4"></script>
+  <script type="module" src="./scene.js?v=5"></script>
 </body>
 </html>
