@@ -25,12 +25,12 @@ const REST_DZ = -0.8, PRESENT_DZ = 0.53;  // card depth at rest / presented (fro
 
 async function start() {
   prefetchArm();          // arm meshing runs in workers while the rest is set up
-  const portraitPromise = new THREE.TextureLoader().loadAsync('./assets/portrait.webp');
+  const portraitPromise = new THREE.TextureLoader().loadAsync('./assets/portrait-full.webp');
   // Keep the asset request parallel with meshing; start() handles failures below.
   portraitPromise.catch(() => {});
   const renderer = new THREE.WebGLRenderer({antialias: true, powerPreference: 'high-performance'});
-  // 1.5x is visually indistinguishable here (the text is DOM) and ~45% fewer pixels than 2x
-  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));
+  // Preserve retina detail in the photo as well as in the DOM text.
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   // High-key studio curve: linear (colour-faithful) up to 0.8, then a short
   // exponential shoulder that reaches white at ~1.7, so the window-lit left
@@ -114,6 +114,9 @@ async function start() {
   const edge = new THREE.Mesh(new THREE.TubeGeometry(edgePath, 240, 0.0042, 8, true), led);
   card.add(edge);
   const portrait = await portraitPromise;
+  // Crop the full-resolution image in UV space, retaining the existing framing.
+  portrait.repeat.set(0.70, 0.7825);
+  portrait.offset.set(0.15, 1 - 0.7825);
   portrait.colorSpace = THREE.SRGBColorSpace;
   portrait.anisotropy = renderer.capabilities.getMaxAnisotropy();
   const pw = CARD.w - 0.05, ph = CARD.h - 0.05;
