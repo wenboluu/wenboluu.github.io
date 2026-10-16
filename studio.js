@@ -31,19 +31,19 @@ export const WINDOW = {x: -4.8, y0: 1.2, y1: 9.3, z0: -8.0, z1: 14.0,
 // A large glazed opening at the front-left of the room (behind the viewer).
 // No direct sun through it, only diffuse sky: it washes the left of the room.
 export const FRONT = {x: -6.0, y: 2.2, z: 1.6, w: 3.4, h: 4.4};
-export const ROOM = {wallZ: -1.4, cove: 0.3, floorY: 0};
+export const ROOM = {wallZ: -1.4, cove: 0.6, floorY: 0};
 
 const SUN_GLSL = /* glsl */`
 uniform vec3 uSunDir;
-float sBox(float x, float lo, float hi, float b) {          // box ⊗ box filter
-  return clamp((min(x + b*.5, hi) - max(x - b*.5, lo)) / b, 0., 1.);
+float sBox(float x, float lo, float hi, float b) {          // softly diffused aperture edges
+  return smoothstep(lo - b*.5, lo + b*.5, x) * (1. - smoothstep(hi - b*.5, hi + b*.5, x));
 }
 float studioSun(vec3 p) {
   if (uSunDir.x > -1e-3) return 1.;
   float t = (${WINDOW.x.toFixed(3)} - p.x) / uSunDir.x;
   if (t <= 0.) return 1.;
   vec3 q = p + uSunDir * t;
-  float b = .1 + t * .1;                                     // penumbra grows with distance (large, soft source)
+  float b = .22 + t * .18;                                     // penumbra grows with distance (large, soft source)
   float open = sBox(q.y, ${WINDOW.y0.toFixed(3)}, ${WINDOW.y1.toFixed(3)}, b) * sBox(q.z, ${WINDOW.z0.toFixed(3)}, ${WINDOW.z1.toFixed(3)}, b);
   ${WINDOW.mullions.map(z => `open *= 1. - sBox(q.z, ${(z - WINDOW.mullionW/2).toFixed(3)}, ${(z + WINDOW.mullionW/2).toFixed(3)}, b);`).join('\n  ')}
   ${WINDOW.transoms.map(y => `open *= 1. - sBox(q.y, ${(y - WINDOW.transomW/2).toFixed(3)}, ${(y + WINDOW.transomW/2).toFixed(3)}, b);`).join('\n  ')}
@@ -80,28 +80,28 @@ export function createStudio(renderer, scene) {
   }
 
   // ---- lights ----
-  const sun = new THREE.DirectionalLight(0xfff7ea, 5.5);
+  const sun = new THREE.DirectionalLight(0xfff7ea, 4.6);
   sun.position.copy(SUN_DIR).multiplyScalar(12).add(new THREE.Vector3(0, 1.2, 0));
   sun.target.position.set(0, 1.2, 0);
   sun.castShadow = true;
-  sun.shadow.intensity = .5;          // shadows cast by the arm/charms only; window shafts unaffected
+  sun.shadow.intensity = .42;          // shadows cast by the arm/charms only; window shafts unaffected
   sun.shadow.mapSize.set(2048, 2048);
   Object.assign(sun.shadow.camera, {left: -9, right: 9, top: 9, bottom: -6, near: 0.5, far: 40});
-  sun.shadow.radius = 10; sun.shadow.blurSamples = 20;
+  sun.shadow.radius = 14; sun.shadow.blurSamples = 20;
   sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.01;
   scene.add(sun, sun.target);
 
   // Skylight: the bright ceiling / open sky above gives a broad, very soft
   // shadow straight under the arm and card (ambient occlusion on the floor).
-  const sky = new THREE.DirectionalLight(0xf2f6fb, 1.4);
+  const sky = new THREE.DirectionalLight(0xf2f6fb, 1.65);
   // from above and a little to the right: its soft shadow falls left of the base
   sky.position.set(3.4, 10, 0.7); sky.target.position.set(0.6, 0, 0);
-  sky.castShadow = true; sky.shadow.mapSize.set(1024, 1024); sky.shadow.intensity = .55;
+  sky.castShadow = true; sky.shadow.mapSize.set(1024, 1024); sky.shadow.intensity = .45;
   Object.assign(sky.shadow.camera, {left: -9, right: 9, top: 6, bottom: -4, near: 0.5, far: 30});
   sky.shadow.radius = 18; sky.shadow.blurSamples = 20; sky.shadow.bias = -0.0005;
   scene.add(sky, sky.target);
 
-  const win = new THREE.RectAreaLight(0xf5f7fa, 1.1, WINDOW.z1 - WINDOW.z0, WINDOW.y1 - WINDOW.y0);
+  const win = new THREE.RectAreaLight(0xf5f7fa, 1.35, WINDOW.z1 - WINDOW.z0, WINDOW.y1 - WINDOW.y0);
   win.position.set(WINDOW.x, (WINDOW.y0 + WINDOW.y1) / 2, (WINDOW.z0 + WINDOW.z1) / 2);
   win.lookAt(WINDOW.x + 1, win.position.y, win.position.z);
   scene.add(win);
@@ -176,7 +176,7 @@ export function createStudio(renderer, scene) {
         .replace('#include <common>', '#include <common>\nvarying float vFloor;\nuniform sampler2D uRefl;\nuniform vec2 uReflSize;\nuniform vec2 uBase;')
         // satin floor, matte wall; the floor is a touch cooler & brighter
         .replace('#include <roughnessmap_fragment>', '#include <roughnessmap_fragment>\nroughnessFactor = mix(.95, .5, vFloor);')
-        .replace('#include <color_fragment>', '#include <color_fragment>\ndiffuseColor.rgb *= mix(vec3(1.), vec3(.9, .906, .915), vFloor);')
+        .replace('#include <color_fragment>', '#include <color_fragment>\ndiffuseColor.rgb *= mix(vec3(1.), vec3(.955, .958, .965), vFloor);')
         // ambient occlusion where the pedestal meets the floor
         .replace('#include <aomap_fragment>', `#include <aomap_fragment>
           { float r = length(vStudioWorld.xz - uBase);
@@ -186,9 +186,9 @@ export function createStudio(renderer, scene) {
             // the foot of the wall sits in the corner's occlusion; the floor
             // just in front of it only slightly, so the junction reads as a
             // soft horizon: darker wall foot, brighter floor plane
-            float corner = (.55 * exp(-vStudioWorld.y / .35) + .45 * exp(-vStudioWorld.y / 1.3)) * (1. - vFloor)
+            float corner = (.55 * exp(-vStudioWorld.y / .65) + .45 * exp(-vStudioWorld.y / 1.3)) * (1. - vFloor)
                          + .12 * exp(-max(vStudioWorld.z - (${(ROOM.wallZ + ROOM.cove).toFixed(3)}), 0.) / .25) * vFloor;
-            ao *= 1. - .24 * corner;
+            ao *= 1. - .085 * corner;
             reflectedLight.indirectDiffuse *= ao; reflectedLight.directDiffuse *= mix(1., ao, .85); }`)
         .replace('#include <opaque_fragment>', `
           { vec2 suv = gl_FragCoord.xy / uReflSize;
